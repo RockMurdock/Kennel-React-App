@@ -32,7 +32,8 @@ const ApplicationViews = () => {
         render={props => {
           // Pass the animalId to the AnimalDetailComponent
           return (
-            <AnimalDetail animalId={parseInt(props.match.params.animalId)} />
+            <AnimalDetail animalId={parseInt(props.match.params.animalId)}
+            {...props} />
           );
         }}
       />
@@ -65,7 +66,8 @@ const ApplicationViews = () => {
       />
       <Route path="/locations/:locationId(\d+)" render={(props) => {
   // Pass the locationId to the LocationDetailComponent
-  return <LocationDetail locationId={parseInt(props.match.params.locationId)}/>
+  return <LocationDetail locationId={parseInt(props.match.params.locationId)}
+  {...props}/>
 }} />
     </React.Fragment>
   );
