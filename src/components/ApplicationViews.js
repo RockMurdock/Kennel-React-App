@@ -1,14 +1,17 @@
 import { Route } from "react-router-dom";
 import React from "react";
 import Home from "./home/Home";
-import AnimalCard from "./animal/AnimalCard";
 //only include these once they are built - previous practice exercise
 import AnimalList from "./animal/AnimalList";
 import EmployeeList from "./employee/EmployeeList";
 import OwnerList from "./owner/OwnerList";
 import LocationList from "./location/LocationList";
-import AnimalDetail from "./animal/AnimalDetail"
-import LocationDetail from "./location/LocationDetail"
+import AnimalDetail from "./animal/AnimalDetail";
+import LocationDetail from "./location/LocationDetail";
+import AnimalForm from "./animal/AnimalForm";
+import EmployeeForm from "./employee/EmployeeForm";
+import OwnerForm from "./owner/OwnerForm";
+import LocationForm from "./location/LocationForm";
 
 const ApplicationViews = () => {
   return (
@@ -24,7 +27,7 @@ const ApplicationViews = () => {
         exact
         path="/animals"
         render={props => {
-          return <AnimalList />;
+          return <AnimalList {...props} />;
         }}
       />
       <Route
@@ -32,12 +35,13 @@ const ApplicationViews = () => {
         render={props => {
           // Pass the animalId to the AnimalDetailComponent
           return (
-            <AnimalDetail animalId={parseInt(props.match.params.animalId)}
-            {...props} />
+            <AnimalDetail
+              animalId={parseInt(props.match.params.animalId)}
+              {...props}
+            />
           );
         }}
       />
-
       {/*
   This is a new route to handle a URL with the following pattern:
   http://localhost:3000/animals/1
@@ -47,28 +51,63 @@ const ApplicationViews = () => {
   http://localhost:3000/animals/jack
 */}
       <Route
-        path="/employee"
+        exact
+        path="/employees"
         render={props => {
-          return <EmployeeList />;
+          return <EmployeeList {...props} />;
         }}
       />
       <Route
-        path="/owner"
+        exact
+        path="/owners"
         render={props => {
-          return <OwnerList />;
+          return <OwnerList {...props} />;
         }}
       />
       <Route
-        exact path="/location"
+        exact
+        path="/locations"
         render={props => {
-          return <LocationList />;
+          return <LocationList {...props} />;
         }}
       />
-      <Route path="/locations/:locationId(\d+)" render={(props) => {
-  // Pass the locationId to the LocationDetailComponent
-  return <LocationDetail locationId={parseInt(props.match.params.locationId)}
-  {...props}/>
-}} />
+      <Route
+        path="/locations/:locationId(\d+)"
+        render={props => {
+          // Pass the locationId to the LocationDetailComponent
+          return (
+            <LocationDetail
+              locationId={parseInt(props.match.params.locationId)}
+              {...props}
+            />
+          );
+        }}
+      />
+
+      <Route
+        path="/animals/new"
+        render={props => {
+          return <AnimalForm {...props} />;
+        }}
+      />
+      <Route
+        path="/employees/new"
+        render={props => {
+          return <EmployeeForm {...props} />;
+        }}
+      />
+      <Route
+        path="/locations/new"
+        render={props => {
+          return <LocationForm {...props} />;
+        }}
+      />
+      <Route
+        path="/owners/new"
+        render={props => {
+          return <OwnerForm {...props} />;
+        }}
+      />
     </React.Fragment>
   );
 };
