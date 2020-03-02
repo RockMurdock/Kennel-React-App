@@ -1,4 +1,4 @@
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import React from "react";
 import Home from "./home/Home";
 //only include these once they are built - previous practice exercise
@@ -12,24 +12,28 @@ import AnimalForm from "./animal/AnimalForm";
 import EmployeeForm from "./employee/EmployeeForm";
 import OwnerForm from "./owner/OwnerForm";
 import LocationForm from "./location/LocationForm";
+import Login from "./auth/Login";
 
 const ApplicationViews = () => {
+  const isAuthenticated = () => sessionStorage.getItem("credentials") !== null;
+
   return (
     <React.Fragment>
       <Route
         exact
-        path="/"
+        path="/home"
         render={props => {
           return <Home />;
         }}
       />
-      <Route
-        exact
-        path="/animals"
-        render={props => {
-          return <AnimalList {...props} />;
-        }}
-      />
+      <Route exact path="/animals" render={props => {
+  if (isAuthenticated()) {
+    return <AnimalList {...props} />
+  } else {
+    return <Redirect to="/login" />
+  }
+}} />
+
       <Route
         path="/animals/:animalId(\d+)"
         render={props => {
@@ -50,27 +54,27 @@ const ApplicationViews = () => {
   matches only numbers after the final slash in the URL
   http://localhost:3000/animals/jack
 */}
-      <Route
-        exact
-        path="/employees"
-        render={props => {
-          return <EmployeeList {...props} />;
-        }}
-      />
-      <Route
-        exact
-        path="/owners"
-        render={props => {
-          return <OwnerList {...props} />;
-        }}
-      />
-      <Route
-        exact
-        path="/locations"
-        render={props => {
-          return <LocationList {...props} />;
-        }}
-      />
+      <Route exact path="/employees" render={props => {
+  if (isAuthenticated()) {
+    return <EmployeeList {...props} />
+  } else {
+    return <Redirect to="/login" />
+  }
+}} />
+      <Route exact path="/owners" render={props => {
+  if (isAuthenticated()) {
+    return <OwnerList {...props} />
+  } else {
+    return <Redirect to="/login" />
+  }
+}} />
+      <Route exact path="/locations" render={props => {
+  if (isAuthenticated()) {
+    return <LocationList {...props} />
+  } else {
+    return <Redirect to="/login" />
+  }
+}} />
       <Route
         path="/locations/:locationId(\d+)"
         render={props => {
@@ -108,6 +112,7 @@ const ApplicationViews = () => {
           return <OwnerForm {...props} />;
         }}
       />
+      <Route path="/login" component={Login} />
     </React.Fragment>
   );
 };
