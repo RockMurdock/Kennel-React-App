@@ -10,18 +10,24 @@ const LocationCard = props => {
           <img src={require("./nashville.jpg")} alt="Location" />
         </picture>
         <h3>
-          City:{" "}
-          <span className="content-locationname">{props.location.name}</span>
+          Location:{" "}
+          <span className="content-locationname">{props.kennelLocation.name}</span>
         </h3>
         <button
           type="button"
-          onClick={() => props.deleteLocation(props.location.id)}
+          onClick={() => props.deleteLocation(props.kennelLocation.id)}
         >
           Close Location
         </button>
-        <Link to={`/locations/${props.location.id}`}>
+        <Link to={`/locations/${props.kennelLocation.id}`}>
           <button>Details</button>
         </Link>
+        <button
+          type="button"
+          onClick={() => props.history.push(`/locations/${props.kennelLocation.id}/edit`)}
+        >
+          Edit
+        </button>
       </div>
     </div>
   );
