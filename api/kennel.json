@@ -26,9 +26,9 @@
       "breed": "Labrador"
     },
     {
-      "name": "wrfg",
-      "breed": "sdfg",
-      "id": 6
+      "id": 6,
+      "name": "Bob",
+      "breed": "sdfg"
     },
     {
       "name": "kmn",
@@ -50,8 +50,8 @@
       "name": "Sam"
     },
     {
-      "name": "sarah",
-      "id": 4
+      "id": 4,
+      "name": "Sarah"
     }
   ],
   "locations": [
@@ -77,7 +77,7 @@
     {
       "id": 2,
       "name": "Renee",
-      "phoneNumber": "615-213-7777"
+      "phoneNumber": "615-213-7776"
     },
     {
       "id": 3,
