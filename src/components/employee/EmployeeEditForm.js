@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react"
 import EmployeeManager from "../../modules/EmployeeManager"
 import "./EmployeeForm.css"
+import LocationManager from "../../modules/LocationManager"
 
 const EmployeeEditForm = props => {
   const [employee, setEmployee] = useState({ name: ""});
   const [isLoading, setIsLoading] = useState(false);
+  const [kennelLocation, setLocation] = useState([])
 
   const handleFieldChange = evt => {
     const stateToChange = { ...employee };
@@ -19,7 +21,8 @@ const EmployeeEditForm = props => {
     // This is an edit, so we need the id
     const editedEmployee = {
       id: props.match.params.employeeId,
-      name: employee.name
+      name: employee.name,
+      locationId: parseInt(employee.locationId)
     };
 
     EmployeeManager.update(editedEmployee)
@@ -29,8 +32,11 @@ const EmployeeEditForm = props => {
   useEffect(() => {
     EmployeeManager.get(props.match.params.employeeId)
       .then(employee => {
-        setEmployee(employee);
-        setIsLoading(false);
+          LocationManager.getAll().then(locations => {
+            setLocation(locations)
+            setEmployee(employee);
+            setIsLoading(false);   
+          })
       });
   }, []);
 
@@ -48,6 +54,20 @@ const EmployeeEditForm = props => {
               value={employee.name}
             />
             <label htmlFor="name">Employee name</label>
+            <select
+              className="form-control"
+              id="locationId"
+              value={employee.locationId}
+              onChange={handleFieldChange}
+            >
+              {kennelLocation.map(location =>
+                <option key={location.id} value={location.id}>
+                  {location.name}
+                </option>
+              )}
+            </select>
+            <label htmlFor="locationId">Location</label>
+
           </div>
           <div className="alignRight">
             <button

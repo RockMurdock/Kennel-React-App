@@ -3,12 +3,14 @@
     {
       "id": 1,
       "name": "Dr.Mundo",
-      "breed": "Schnug"
+      "breed": "Schnug",
+      "employeeId": 1
     },
     {
       "id": 2,
       "name": "Poppy",
-      "breed": "Chaweenie"
+      "breed": "Chaweenie",
+      "employeeId": 4
     },
     {
       "id": 3,
@@ -18,40 +20,53 @@
     {
       "id": 4,
       "name": "Bear",
-      "breed": "Scottish Terrier"
-    },
-    {
-      "id": 5,
-      "name": "Pavlov",
-      "breed": "Labrador"
+      "breed": "Scottish Terrier",
+      "employeeId": 4
     },
     {
       "id": 6,
       "name": "Bob",
-      "breed": "sdfg"
+      "breed": "sdfg",
+      "employeeId": 1
     },
     {
-      "name": "kmn",
-      "breed": "kmn",
-      "id": 7
+      "id": 8,
+      "name": "mhbjhg",
+      "breed": "higjhg",
+      "employeeId": 2
+    },
+    {
+      "id": 9,
+      "name": "asdfas",
+      "breed": "asdfasd",
+      "employeeId": 2
     }
   ],
   "employees": [
     {
       "id": 1,
-      "name": "Susan"
+      "name": "Susan",
+      "locationId": 2
     },
     {
       "id": 2,
-      "name": "Peter"
+      "name": "Peter",
+      "locationId": 1
     },
     {
       "id": 3,
-      "name": "Sam"
+      "name": "Sam",
+      "locationId": 3
     },
     {
       "id": 4,
-      "name": "Sarah"
+      "name": "Sarah",
+      "locationId": 1
+    },
+    {
+      "id": 5,
+      "name": "asdf",
+      "locationId": 1
     }
   ],
   "locations": [
