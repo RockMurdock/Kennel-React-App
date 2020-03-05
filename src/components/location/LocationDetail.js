@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import LocationManager from '../../modules/LocationManager';
-import './LocationDetail.css'
+import React, { useState, useEffect } from "react";
+import LocationManager from "../../modules/LocationManager";
+import EmployeeCard from "../employee/EmployeeCard";
+import EmployeeManager from "../../modules/EmployeeManager";
+import "./LocationDetail.css";
 
 const LocationDetail = props => {
-  const [kennelLocation, setLocation] = useState({ name: ""});
+  const [employees, setEmployee] = useState([]);
+  const [kennelLocation, setLocation] = useState({ name: "" });
   const [isLoading, setIsLoading] = useState(true);
 
-
   useEffect(() => {
-    //get(id) from LocationManager and hang on to the data; put it into state
-    LocationManager.get(props.locationId)
-      .then(kennelLocation => {
-        setLocation({
-          name: kennelLocation.name
-        });
-        setIsLoading(false);
-      });
-  }, [props.locationId]);
+    LocationManager.getWithEmployees(props.match.params.locationId).then(
+      APIResult => {
+        setLocation(APIResult);
+        setEmployee(APIResult.employees);
+      }
+    );
+  }, []);
+
+  const deleteEmployee = id => {
+    EmployeeManager.delete(id).then(() => props.history.push(`/locations`));
+  };
 
   const handleDelete = () => {
     //invoke the delete function in LocationManger and re-direct to the location list.
@@ -25,21 +29,20 @@ const LocationDetail = props => {
       props.history.push("/locations")
     );
   };
-  
 
   return (
     <div className="card">
-      <div className="card-content">
-        <picture>
-          <img src={require('./nashville.jpg')} alt="Location" />
-        </picture>
-        <h3>Name: <span style={{ color: 'darkslategrey' }}>{kennelLocation.name}</span></h3>
-        <button type="button" disabled={isLoading} onClick={handleDelete}>
-          Close Location
-        </button>
-      </div>
+      <p>Location: {kennelLocation.name}</p>
+      {employees.map(employee => (
+        <EmployeeCard
+          key={employee.id}
+          employee={employee}
+          deleteEmployee={deleteEmployee}
+          {...props}
+        />
+      ))}
     </div>
   );
-}
+};
 
 export default LocationDetail;
